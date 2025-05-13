@@ -1,0 +1,60 @@
+name: Build Traverz Binaries
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build for ${{ matrix.os }} (${{ matrix.arch }})
+    runs-on: ${{ matrix.os_runner }}
+    strategy:
+      matrix:
+        include:
+          - os: windows
+            os_runner: windows-latest
+            goarch: amd64
+            binary_name: traverz.exe
+            artifact_name_suffix: windows-amd64
+          - os: linux
+            os_runner: ubuntu-latest
+            goarch: amd64
+            binary_name: traverz
+            artifact_name_suffix: linux-amd64
+          - os: macos
+            os_runner: macos-latest
+            goarch: amd64
+            binary_name: traverz
+            artifact_name_suffix: macos-amd64
+          - os: macos
+            os_runner: macos-latest
+            goarch: arm64
+            binary_name: traverz
+            artifact_name_suffix: macos-arm64
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: 'go.mod'
+          cache: true 
+
+      - name: Build application
+        env:
+          GOOS: ${{ matrix.os }}
+          GOARCH: ${{ matrix.goarch }}
+        run: |
+          echo "Building for GOOS=$GOOS GOARCH=$GOARCH"
+          go build -v -o ${{ matrix.binary_name }} .
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: traverz-${{ matrix.artifact_name_suffix }}
+          path: ${{ matrix.binary_name }}
+          if-no-files-found: error

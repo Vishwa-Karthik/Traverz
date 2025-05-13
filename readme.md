@@ -1,10 +1,6 @@
-# traverz 🌲
+# Traverz
 
-[![Go Version](https://img.shields.io/github/go-mod/go-version/Vishwa-Karthik/traverz)](https://golang.org)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-<!-- Add more badges as you set up CI/CD, e.g., build status, code coverage -->
-
-**traverz** is a developer-centric, cross-platform CLI tool that recursively scans any directory and produces a Markdown-rendered tree layout, much like the Unix `tree` command, but with optional file/folder icons and direct Markdown output suitable for documentation or sharing. The output can be displayed in the terminal or saved to a file.
+`traverz` is a developer-centric, cross-platform CLI tool that recursively scans any directory and produces a Markdown-rendered tree layout, much like the Unix `tree` command, but with optional file/folder icons and direct Markdown output suitable for documentation or sharing. The output can be displayed in the terminal or saved to a file.
 
 Designed with modern development workflows in mind, `traverz` aims to be an intuitive and useful utility for visualizing directory structures.
 
